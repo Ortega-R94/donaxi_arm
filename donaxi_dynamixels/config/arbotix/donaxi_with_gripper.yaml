@@ -1,0 +1,20 @@
+port: /dev/ttyUSB0
+baud: 1000000
+rate: 100
+sync_write: True
+sync_read: False
+read_rate: 10
+write_rate: 10
+
+joints: {
+	link_1_joint: {id: 1, neutral: 512, min_angle: -145, max_angle: 145},
+    servo_2_joint: {id: 2, neutral: 512, min_angle: -90, max_angle: 90},
+    link_3_joint: {id: 3, neutral: 512, invert: True},
+    link_4_joint: {id: 4, neutral: 512, min_angle: -90, max_angle: 90},
+    link_5_joint: {id: 5, neutral: 512, min_angle: -90, max_angle: 90}
+}
+
+controllers: {
+   base_controller: {type: diff_controller, base_frame_id: base_footprint, base_width: 0.26, ticks_meter: 4100, Kp: 12, Kd: 12, Ki: 0, Ko: 50, accel_limit: 1.0 },
+   right_arm_controller: {onboard: False, action_name: right_arm_controller/follow_joint_trajectory, type: follow_controller, joints: [link_1_joint, servo_2_joint, link_3_joint, link_4_joint, link_5_joint]}
+}
